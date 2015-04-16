@@ -141,13 +141,12 @@ module.exports = function( grunt ) {
         }
       }
     },
-    'saucelabs-mocha': {
+    'saucelabs-custom': {
       all: {
         options: {
           urls:  '<%= env.coverage.urls %>',
           testname: process.env.CI_BUILD_NUMBER || 'Modernizr Test',
-          browsers: browsers,
-          maxRetries: 2
+          browsers: browsers
         }
       }
     },
@@ -209,7 +208,7 @@ module.exports = function( grunt ) {
   grunt.registerTask('nodeTests', ['mochaTest']);
 
   // Testing tasks
-  grunt.registerTask('test', ['clean', 'jshint', 'jade', 'instrument', 'env:coverage', 'nodeTests', 'generate', 'storeCoverage', 'browserTests', 'makeReport']);
+  grunt.registerTask('test', ['clean', 'jshint', 'jade', 'instrument', 'env:coverage', 'nodeTests', 'generate', 'storeCoverage', 'browserTests', 'saucelabs-custom', 'makeReport']);
 
   // Travis CI task.
   grunt.registerTask('travis', ['test']);
